@@ -1,7 +1,5 @@
 global using MediatR;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using VerticalSliceExample.Features.ExampleFeature;
-using VerticalSliceExample.Shared.Tools;
 
 var builder = WebApplication.CreateBuilder(args);
 
