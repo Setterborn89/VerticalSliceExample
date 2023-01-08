@@ -23,12 +23,12 @@ public class ResultContainer<T>
                 Message = response.StatusCode switch
                 {
                     HttpStatusCode.BadRequest => "Bad request",
-                    HttpStatusCode.Unauthorized => "Sorry, you are not allowed to access the requested serivce",
-                    HttpStatusCode.Forbidden => "Sorry, you are not allowed to access the requested serivce",
+                    HttpStatusCode.Unauthorized => "Unauthorized",
+                    HttpStatusCode.Forbidden => "Forbidden",
                     HttpStatusCode.NotFound => "Not found",
-                    HttpStatusCode.Conflict => "The content already exists",
-                    HttpStatusCode.InternalServerError => "Internal error, please contact the site administrator",
-                    _ => "Error",
+                    HttpStatusCode.Conflict => "Conflict",
+                    HttpStatusCode.InternalServerError => "Internal error",
+                    _ => "Unspecified Error",
                 };
             }
         }
