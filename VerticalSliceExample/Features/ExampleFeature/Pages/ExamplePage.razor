@@ -1,0 +1,31 @@
+﻿@page "/ExamplePage"
+@inject IMediator _mediator
+@using VerticalSliceExample.Features.ExampleFeature.Queries
+
+<h1>ExamplePage</h1>
+
+<h5>@Example</h5>
+
+<p>Enter 1 - 3</p>
+
+<input type="number" @bind-value="Id" />
+
+<button type="button" class="btn btn-primary" @onclick="QueryExample">Query Example</button>
+
+@code {
+    public string Example { get; set; } = string.Empty;
+    public int Id { get; set; } = 0;
+
+    public async Task QueryExample()
+    {
+        var queryReponse = await _mediator.Send(new ExampleQuery.Query( new ExampleRequest() { Id = this.Id } ));
+        if (queryReponse.Result.Success)
+        {
+            Example = queryReponse?.Result?.Value?.Example ?? string.Empty;
+        }
+        else
+        {
+            Example = queryReponse?.Result?.Message ?? string.Empty;
+        }
+    }
+}
