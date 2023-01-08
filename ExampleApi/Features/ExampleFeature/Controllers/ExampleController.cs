@@ -1,23 +1,27 @@
-﻿using ExampleApi.Models;
+﻿using ExampleApi.Features.ExampleFeature.Models;
+using ExampleApi.Features.ExampleFeature.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ExampleApi.Controllers;
+namespace ExampleApi.Features.ExampleFeature.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 public class ExampleController : Controller
 {
+    private readonly IMediator _mediator;
+
+    public ExampleController(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
     // GET: ExampleController/Details/5
     [HttpGet("{id}")]
-    public ActionResult<ExampleResponse> Details(int id)
+    public async Task<ActionResult<FakedData>> Details(int id)
     {
-        return id switch
-        {
-            1 => Ok(new ExampleResponse() { Example = "Example1" }),
-            2 => Ok(new ExampleResponse() { Example = "Example2" }),
-            3 => Ok(new ExampleResponse() { Example = "Example3" }),
-            _ => NotFound()
-        };
+        var queryResponse = await _mediator.Send(new ExampleQuery.Query(id));
+        return queryResponse.Result != null ? Ok(queryResponse?.Result) : NotFound();
     }
 
     // POST: ExampleController/Create
