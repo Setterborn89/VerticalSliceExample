@@ -8,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages(options => options.RootDirectory = "/Shared/Pages");
 builder.Services.AddServerSideBlazor();
-builder.Services.AddScoped(typeof(ResultContainer<>), typeof(ResultContainer<>));
 
 // Add features to the container.
 builder.AddExampleFeatureFeature();
