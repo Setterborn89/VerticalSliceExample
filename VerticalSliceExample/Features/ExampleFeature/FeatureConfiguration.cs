@@ -1,4 +1,5 @@
-﻿using VerticalSliceExample.Features.ExampleFeature.Infrastructure;
+﻿using VerticalSliceExample.Features.ExampleFeature.Commands;
+using VerticalSliceExample.Features.ExampleFeature.Infrastructure;
 using VerticalSliceExample.Features.ExampleFeature.Queries;
 
 namespace VerticalSliceExample.Features.ExampleFeature;
@@ -8,6 +9,8 @@ public static class FeatureConfiguration
     public static WebApplicationBuilder AddExampleFeatureFeature(this WebApplicationBuilder builder)
     {
         builder.Services.AddScoped(typeof(IRequestHandler<ExampleQuery.Query, ExampleQuery.Response>), typeof(ExampleQuery.Handler));
+
+        builder.Services.AddScoped(typeof(IRequestHandler<ExampleCommand.Command, ExampleCommand.Response>), typeof(ExampleCommand.Handler));
 
         builder.AddExampleHttpClient();
 

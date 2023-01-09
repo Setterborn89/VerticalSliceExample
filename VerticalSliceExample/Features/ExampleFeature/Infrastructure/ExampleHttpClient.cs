@@ -20,4 +20,12 @@ public class ExampleHttpClient : IExampleHttpClient
 
         return new ResultContainer<ExampleResponse>(content, response);
     }
+
+    public async Task<ResultContainer<bool>> PostExampleAsync(ExampleRequest example)
+    {
+        var response = await _httpClient.PostAsJsonAsync($"api/Example", example.Text);
+        var content = await response.Content.ReadFromJsonAsync<bool>();
+
+        return new ResultContainer<bool>(content, response);
+    }
 }

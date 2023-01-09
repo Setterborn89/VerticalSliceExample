@@ -26,9 +26,9 @@ public class ExampleController : Controller
 
     // POST: ExampleController/Create
     [HttpPost]
-    public ActionResult Create()
+    public ActionResult<bool> Create([FromBody]string example)
     {
-        return Ok(true);
+        return example == "Test" ? Ok(true) : BadRequest(false);
     }
 
     // POST: ExampleController/Edit/5
