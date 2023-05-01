@@ -35,27 +35,23 @@
 
     public async Task QueryExample()
     {
-        var queryReponse = await _mediator.Send(new ExampleQuery.Query( new ExampleRequest() { Id = this.Id } ));
-        if (queryReponse.Result.Success)
+        var queryResult = await _mediator.Send(new ExampleQuery.Query(new ExampleRequest { Id = this.Id }));
+
+        QueryResponse = queryResult.Result.Success switch
         {
-            QueryResponse = queryReponse?.Result?.Value?.Example ?? string.Empty;
-        }
-        else
-        {
-            QueryResponse = queryReponse?.Result?.Message ?? string.Empty;
-        }
+            true => queryResult?.Result?.Value?.Example ?? string.Empty,
+            false => queryResult?.Result?.Message ?? string.Empty
+        };
     }
 
     public async Task CommandExample()
     {
-        var queryReponse = await _mediator.Send(new ExampleCommand.Command(new ExampleRequest() { Text = this.Text }));
-        if (queryReponse.Result.Success)
+        var queryResult = await _mediator.Send(new ExampleCommand.Command(new ExampleRequest() { Text = this.Text }));
+
+        CommandResponse = queryResult.Result.Success switch
         {
-            CommandResponse = queryReponse?.Result?.Value.ToString() ?? string.Empty;
-        }
-        else
-        {
-            CommandResponse = queryReponse?.Result?.Value.ToString() + " " + queryReponse?.Result?.Message ?? string.Empty;
-        }
+            true => queryResult?.Result?.Value.ToString() ?? string.Empty,
+            false => queryResult?.Result?.Value.ToString() + " " + queryResult?.Result?.Message ?? string.Empty
+        };
     }
 }
